@@ -2,18 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
-import 'package:tasky/widgets/task_list_widget.dart';
 
-import '../model/task_model.dart';
+import '../../model/task_model.dart';
+import '../../core/componants/task_list_widget.dart';
 
-class TasksScreen extends StatefulWidget {
-  const TasksScreen({super.key});
+class CompleteTasksScreen extends StatefulWidget {
+  const CompleteTasksScreen({super.key});
 
   @override
-  State<TasksScreen> createState() => _TasksScreenState();
+  State<CompleteTasksScreen> createState() => _CompleteTasksScreenState();
 }
 
-class _TasksScreenState extends State<TasksScreen> {
+class _CompleteTasksScreenState extends State<CompleteTasksScreen> {
   bool isLoading = false;
   List<TaskModel> tasks = [];
 
@@ -28,14 +28,13 @@ class _TasksScreenState extends State<TasksScreen> {
       isLoading = true;
     });
     final finalTask = PreferencesManager().getString('tasks');
-
     if (finalTask != null) {
-      final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
+      final taskAfterDecode = jsonDecode(finalTask ?? '') as List<dynamic>;
       setState(() {
         tasks =
             taskAfterDecode
                 .map((e) => TaskModel.fromJson(e))
-                .where((element) => element.isDone == false)
+                .where((element) => element.isDone)
                 .toList();
       });
     }
@@ -68,7 +67,7 @@ class _TasksScreenState extends State<TasksScreen> {
         Padding(
           padding: const EdgeInsets.all(18.0),
           child: Text(
-            "To Do Tasks",
+            "Completed Tasks",
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
@@ -81,9 +80,6 @@ class _TasksScreenState extends State<TasksScreen> {
                       child: CircularProgressIndicator(color: Colors.white),
                     )
                     : TaskListWidget(
-                      onEdit: () {
-                        _loadTask();
-                      },
                       tasks: tasks,
                       onTap: (value, index) async {
                         setState(() {
@@ -110,6 +106,9 @@ class _TasksScreenState extends State<TasksScreen> {
                       },
                       onDelete: (int? id) {
                         _deleteTasks(id);
+                      },
+                      onEdit: () {
+                        _loadTask();
                       },
                     ),
           ),
