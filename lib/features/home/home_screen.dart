@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isLoading = true;
     });
-    final finalTask = PreferencesManager().getString('tasks');
+    final finalTask = PreferencesManager().getString(StorageKey.tasks);
     if (finalTask != null) {
       final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
 
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _loadUserName() async {
     setState(() {
       username = PreferencesManager().getString(StorageKey.username);
-      userImage = PreferencesManager().getString("user_image");
+      userImage = PreferencesManager().getString(StorageKey.userImage);
     });
   }
 
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
       tasks[index!].isDone = value ?? false;
     });
     final updateTask = tasks.map((e) => e.toMap()).toList();
-    await PreferencesManager().setString('tasks', jsonEncode(updateTask));
+    await PreferencesManager().setString(StorageKey.tasks, jsonEncode(updateTask));
     _calculatePercent();
   }
 
@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _calculatePercent();
     });
     final updateTask = tasks.map((e) => e.toMap()).toList();
-    await PreferencesManager().setString('tasks', jsonEncode(updateTask));
+    await PreferencesManager().setString(StorageKey.tasks, jsonEncode(updateTask));
   }
 
   @override

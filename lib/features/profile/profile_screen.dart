@@ -34,8 +34,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _loadUsername() async {
     setState(() {
       username = PreferencesManager().getString(StorageKey.username) ?? '';
-      motivationQuote = PreferencesManager().getString('motivation_quote');
-      userImage = PreferencesManager().getString('user_image');
+      motivationQuote = PreferencesManager().getString(StorageKey.motivationQuote);
+      userImage = PreferencesManager().getString(StorageKey.userImage);
       isLoading = false;
     });
   }
@@ -164,9 +164,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Divider(thickness: 1, color: Color(0xFF6E6E6E)),
               CustomListTile(
                 onTap: () async {
-                  PreferencesManager().remove('tasks');
+                  PreferencesManager().remove(StorageKey.tasks);
                   PreferencesManager().remove(StorageKey.username);
-                  PreferencesManager().remove('motivation_quote');
+                  PreferencesManager().remove(StorageKey.motivationQuote);
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => WelcomeScreen()),
@@ -187,7 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _saveImage(XFile file) async {
     final appDir = await getApplicationDocumentsDirectory();
     final newFile = await File(file.path).copy("${appDir.path}/${file.name}");
-    PreferencesManager().setString('user_image', newFile.path);
+    PreferencesManager().setString(StorageKey.userImage, newFile.path);
   }
 
   // void _showDateTime(BuildContext context) async{

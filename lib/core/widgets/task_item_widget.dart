@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/enums/task_item_actions_enum.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
@@ -175,7 +176,7 @@ class TaskItemWidget extends StatelessWidget {
                       onPressed: () async {
                         if (key.currentState?.validate() ?? false) {
                           final taskJson = PreferencesManager().getString(
-                            'tasks',
+                            StorageKey.tasks,
                           );
                           List<TaskModel>? listTask = [];
                           if (taskJson != null) {
@@ -202,7 +203,7 @@ class TaskItemWidget extends StatelessWidget {
                             listTask.map((e) => e.toMap()).toList(),
                           );
                           await PreferencesManager().setString(
-                            'tasks',
+                            StorageKey.tasks,
                             taskEncode,
                           );
                           Navigator.pop(context, true);
