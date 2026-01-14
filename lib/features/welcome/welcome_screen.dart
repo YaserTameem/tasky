@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/core/widgets/custom_text_form_filed.dart';
@@ -25,7 +26,9 @@ class WelcomeScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomSvgPicture.withColorFilter(path:"assets/images/logo.svg" ),
+                      CustomSvgPicture.withColorFilter(
+                        path: "assets/images/logo.svg",
+                      ),
                       SizedBox(width: 16),
                       Text(
                         "Tasky",
@@ -85,7 +88,7 @@ class WelcomeScreen extends StatelessWidget {
                           onPressed: () async {
                             if (_key.currentState?.validate() ?? false) {
                               await PreferencesManager().setString(
-                                "username",
+                                StorageKey.username,
                                 controller.value.text,
                               );
                               Navigator.pushReplacement(

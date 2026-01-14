@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/features/home/components/achieved_tasks_widget.dart';
 import 'package:tasky/model/task_model.dart';
@@ -59,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _loadUserName() async {
     setState(() {
-      username = PreferencesManager().getString("username");
+      username = PreferencesManager().getString(StorageKey.username);
       userImage = PreferencesManager().getString("user_image");
     });
   }

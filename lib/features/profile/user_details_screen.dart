@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/widgets/custom_text_form_filed.dart';
 
@@ -87,7 +88,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       motivationQuoteController.value.text,
                     );
                     await PreferencesManager().setString(
-                      "username",
+                      StorageKey.username,
                       userNameController.value.text,
                     );
                     Navigator.of(context).pop(true);

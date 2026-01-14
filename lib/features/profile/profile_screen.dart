@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
@@ -32,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void _loadUsername() async {
     setState(() {
-      username = PreferencesManager().getString('username') ?? '';
+      username = PreferencesManager().getString(StorageKey.username) ?? '';
       motivationQuote = PreferencesManager().getString('motivation_quote');
       userImage = PreferencesManager().getString('user_image');
       isLoading = false;
@@ -164,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               CustomListTile(
                 onTap: () async {
                   PreferencesManager().remove('tasks');
-                  PreferencesManager().remove('username');
+                  PreferencesManager().remove(StorageKey.username);
                   PreferencesManager().remove('motivation_quote');
                   Navigator.pushAndRemoveUntil(
                     context,
